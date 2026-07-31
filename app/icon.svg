@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="c" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4A4A63"/>
+      <stop offset="35%" stop-color="#2D2D3F"/>
+      <stop offset="100%" stop-color="#1A1A28"/>
+    </linearGradient>
+    <radialGradient id="r" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#FF8A7A"/>
+      <stop offset="60%" stop-color="#E5342A"/>
+      <stop offset="100%" stop-color="#A81810"/>
+    </radialGradient>
+    <radialGradient id="a" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#FFE08A"/>
+      <stop offset="60%" stop-color="#F5A623"/>
+      <stop offset="100%" stop-color="#B36F00"/>
+    </radialGradient>
+    <radialGradient id="g" cx="35%" cy="28%" r="78%">
+      <stop offset="0%" stop-color="#9BF5B4"/>
+      <stop offset="55%" stop-color="#2FBF63"/>
+      <stop offset="100%" stop-color="#0E7A38"/>
+    </radialGradient>
+  </defs>
+  <rect x="29" y="52" width="6" height="7" rx="1.5" fill="#2D2D3F"/>
+  <rect x="16" y="3" width="32" height="50" rx="9" fill="url(#c)"/>
+  <rect x="19.5" y="6.5" width="4" height="43" rx="2" fill="#FFFFFF" opacity="0.13"/>
+  <circle cx="32" cy="14" r="6.5" fill="url(#r)" opacity="0.35"/>
+  <circle cx="32" cy="28.5" r="6.5" fill="url(#a)" opacity="0.35"/>
+  <circle cx="32" cy="43" r="7.5" fill="url(#g)"/>
+  <ellipse cx="29" cy="39.5" rx="2.6" ry="1.8" fill="#FFFFFF" opacity="0.6" transform="rotate(-30 29 39.5)"/>
+  <path d="M28 44.5 Q32 48 36 44.5" fill="none" stroke="#0B5A2A" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+</svg>
