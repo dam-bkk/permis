@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Home, Swords, Trophy, Flame, Star, Volume2, VolumeX, Settings } from "lucide-react";
-import { CreneauLogo } from "@/components/logo";
+import { KreneauLogo } from "@/components/logo";
 import { useProgress } from "@/lib/progress";
 import { usePrefs } from "@/lib/prefs";
 import { setSoundEnabled, soundEnabled } from "@/lib/fx";
@@ -47,11 +47,11 @@ export function Nav() {
     <>
       {/* Barre haute (toutes tailles) : logo + compteurs */}
       <header className="sticky top-0 z-40 bg-cream/95 shadow-[0_2px_12px_rgba(45,45,63,0.08)] backdrop-blur">
-        <div className="mx-auto flex h-16 w-full max-w-[1250px] items-center justify-between px-4 md:px-8">
+        <div className="mx-auto flex h-16 w-full max-w-[1600px] items-center justify-between px-4 md:px-8">
           <Link href="/" className="flex items-center gap-2.5">
-            <CreneauLogo size={36} />
+            <KreneauLogo size={36} />
             <span className="font-display text-2xl font-bold tracking-tight">
-              Créneau
+              Kreneau
             </span>
             <span className="mt-1 rounded-full bg-donnees-tint px-2 py-0.5 text-xs font-bold text-donnees-strong">
               {grade}

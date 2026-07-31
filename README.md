@@ -1,4 +1,4 @@
-# Créneau — Le code de la route
+# Kreneau — Le code de la route
 
 Webapp d'accompagnement scolaire pour la 6e (maths d'abord) : leçons, exercices
 corrigés, défi du jour et suivi de progression. 100 % locale, aucune donnée ne

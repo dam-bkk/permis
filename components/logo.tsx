@@ -1,5 +1,5 @@
 /**
- * Logo Créneau : feu tricolore 3D (dégradés radiaux + reflets), feu vert allumé
+ * Logo Kreneau : feu tricolore 3D (dégradés radiaux + reflets), feu vert allumé
  * avec un sourire discret. Les ids de gradients sont préfixés pour éviter les
  * collisions si le SVG apparaît plusieurs fois dans la page.
  */
@@ -7,7 +7,7 @@
 /** Compatibilité avec le moteur (accessoires non utilisés ici) */
 export type Accessory = "aucun";
 
-export function CreneauLogo({ size = 36 }: { size?: number; accessory?: Accessory }) {
+export function KreneauLogo({ size = 36 }: { size?: number; accessory?: Accessory }) {
   const uid = "cl";
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">

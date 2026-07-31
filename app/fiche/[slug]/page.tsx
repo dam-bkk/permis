@@ -3,7 +3,7 @@ import { CHAPTERS, getChapter } from "@/lib/chapters";
 import { DOMAIN_LABELS } from "@/lib/types";
 import { getSubjectMeta } from "@/lib/subjects";
 import { FicheActions } from "@/components/fiche-actions";
-import { CreneauLogo } from "@/components/logo";
+import { KreneauLogo } from "@/components/logo";
 
 export function generateStaticParams() {
   return CHAPTERS.map((c) => ({ slug: c.slug }));
@@ -38,7 +38,7 @@ export default async function FichePage({
             </p>
             <h1 className="font-display text-2xl font-extrabold leading-tight">{chapter.title}</h1>
           </div>
-          <CreneauLogo size={44} />
+          <KreneauLogo size={44} />
         </div>
 
         <div className="space-y-5 p-6">
@@ -86,7 +86,7 @@ export default async function FichePage({
           )}
 
           <p className="text-center text-xs font-bold text-muted print:mt-4">
-            Créneau · 6e.damien.asia · À relire la veille de l&apos;examen.
+            Kreneau · 6e.damien.asia · À relire la veille de l&apos;examen.
           </p>
         </div>
       </div>

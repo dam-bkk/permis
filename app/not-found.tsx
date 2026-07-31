@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { CreneauLogo } from "@/components/logo";
+import { KreneauLogo } from "@/components/logo";
 
 export default function NotFound() {
   return (
     <div className="card-pop mx-auto mt-10 max-w-md p-8 text-center rise">
       <div className="mx-auto w-fit">
-        <CreneauLogo size={64} />
+        <KreneauLogo size={64} />
       </div>
       <h1 className="mt-4 font-display text-3xl font-extrabold">Oups, page introuvable</h1>
       <p className="mt-2 font-semibold text-muted">

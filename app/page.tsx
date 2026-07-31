@@ -3,362 +3,426 @@
 import Link from "next/link";
 import { useState } from "react";
 import {
-  Swords,
-  ChevronRight,
-  CheckCircle2,
-  Settings2,
-  Flame,
-  BrainCircuit,
+  ArrowRight,
+  Target,
   TimerReset,
-  Check,
+  BrainCircuit,
+  TrendingUp,
+  CircleAlert,
+  CalendarDays,
+  Layers,
 } from "lucide-react";
 import { chaptersFor } from "@/lib/chapters";
-import type { Grade } from "@/lib/types";
 import { useProgress, todayKey, dueReviews } from "@/lib/progress";
 import { usePrefs, setStudentName, setGrade, setOptions } from "@/lib/prefs";
-import { SUBJECTS, GRADES, GRADE_LABELS, GRADES_READY } from "@/lib/subjects";
+import { SUBJECTS } from "@/lib/subjects";
 import { ChapterIcon } from "@/components/chapter-icon";
-import { CreneauLogo } from "@/components/logo";
-import { DAILY_SIZE } from "@/lib/daily";
+import { KreneauLogo } from "@/components/logo";
 
-/** Création / modification du profil : prénom → classe → options */
-function ProfileSetup({ onDone }: { onDone: () => void }) {
-  const { name, grade, options } = usePrefs();
-  const [step, setStep] = useState(0);
-  const [typed, setTyped] = useState(name ?? "");
-  const [pickedGrade, setPickedGrade] = useState<Grade>(grade);
-  const [picked, setPicked] = useState<Set<string>>(
-    new Set(options ?? SUBJECTS.filter((s) => s.optional).map((s) => s.id))
-  );
+/* ------------------------------------------------------------------ */
+/* Première visite : une seule question, on entre dans l'app aussitôt  */
+/* ------------------------------------------------------------------ */
 
-  const optional = SUBJECTS.filter(
-    (s) => s.optional && (!s.grades || s.grades.includes(pickedGrade))
-  );
-
+function FirstRun({ onDone }: { onDone: () => void }) {
+  const [typed, setTyped] = useState("");
   return (
-    <div className="card-pop p-6 md:p-8">
-      {step === 0 && (
-        <>
-          <h1 className="font-display text-2xl font-extrabold md:text-3xl">
-            Bienvenue sur Créneau
-          </h1>
-          <p className="mt-1 font-semibold text-muted">Quel est votre prénom ?</p>
-          <form
-            className="mt-3 flex max-w-sm gap-2"
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (typed.trim()) {
-                setStudentName(typed);
-                setGrade("permis");
-                setOptions([]);
-                onDone();
-              }
-            }}
-          >
-            <input
-              value={typed}
-              onChange={(e) => setTyped(e.target.value)}
-              autoFocus
-              placeholder="Votre prénom…"
-              className="btn-pop flex-1 bg-card px-4 py-2.5 font-bold outline-none placeholder:text-muted"
-            />
-            <button type="submit" className="btn-pop whitespace-nowrap bg-ink px-5 py-2.5 font-extrabold text-white">
-              C&apos;est moi !
-            </button>
-          </form>
-        </>
-      )}
-
-      {step === 1 && (
-        <>
-          <h1 className="font-display text-2xl font-extrabold">En quelle classe es-tu ?</h1>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {GRADES.map((g) => {
-              const ready = GRADES_READY.includes(g);
-              return (
-                <button
-                  key={g}
-                  onClick={() => ready && setPickedGrade(g)}
-                  disabled={!ready}
-                  className={`btn-pop relative px-5 py-2.5 font-extrabold ${
-                    pickedGrade === g ? "bg-ink text-white" : ready ? "bg-card" : "bg-card opacity-45"
-                  }`}
-                >
-                  {GRADE_LABELS[g]}
-                  {!ready && (
-                    <span className="absolute -top-2 -right-2 rounded-full bg-sun px-1.5 py-0.5 text-[9px] font-extrabold text-ink">
-                      bientôt
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-          <p className="mt-3 text-sm font-bold text-muted">
-            4e, 3e et lycée arrivent — la 6e et la 5e sont complètes.
-          </p>
-          <button
-            onClick={() => {
-              setGrade(pickedGrade);
-              setStep(2);
-            }}
-            className="btn-pop mt-4 bg-ink px-6 py-2.5 font-extrabold text-white"
-          >
-            Continuer
-          </button>
-        </>
-      )}
-
-      {step === 2 && (
-        <>
-          <h1 className="font-display text-2xl font-extrabold">Tes options en {GRADE_LABELS[pickedGrade]}</h1>
-          <p className="mt-1 font-semibold text-muted">
-            Le tronc commun est déjà prêt. Coche les options que tu suis au collège —
-            tu pourras changer à tout moment.
-          </p>
-          <div className="mt-4 grid gap-2 sm:grid-cols-2">
-            {optional.map((s) => {
-              const on = picked.has(s.id);
-              return (
-                <button
-                  key={s.id}
-                  onClick={() => {
-                    const next = new Set(picked);
-                    if (on) next.delete(s.id);
-                    else next.add(s.id);
-                    setPicked(next);
-                  }}
-                  className={`btn-pop flex items-center gap-3 px-4 py-3 text-left font-extrabold ${
-                    on ? "text-white" : "bg-card"
-                  }`}
-                  style={on ? { background: `linear-gradient(135deg, ${s.from}, ${s.to})` } : undefined}
-                >
-                  <span
-                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
-                      on ? "bg-white/25" : "bg-line"
-                    }`}
-                  >
-                    {on && <Check size={14} strokeWidth={3.5} />}
-                  </span>
-                  {s.label}
-                </button>
-              );
-            })}
-            {optional.length === 0 && (
-              <p className="font-bold text-muted">Pas d&apos;option à choisir pour cette classe.</p>
-            )}
-          </div>
-          <button
-            onClick={() => {
-              setOptions([...picked]);
-              onDone();
-            }}
-            className="btn-pop mt-5 bg-ink px-7 py-3 font-display text-lg font-bold text-white"
-          >
-            C&apos;est parti !
-          </button>
-        </>
-      )}
+    <div className="fade-up mx-auto flex min-h-[70dvh] max-w-xl flex-col justify-center">
+      <KreneauLogo size={56} />
+      <h1 className="mt-6 font-display text-4xl font-bold leading-[1.1]">
+        Le code, préparé sérieusement.
+      </h1>
+      <p className="mt-3 text-lg leading-relaxed text-muted">
+        Des questions au format officiel, un entraînement qui cible vos erreurs,
+        et un examen blanc qui vous dit où vous en êtes vraiment.
+      </p>
+      <form
+        className="mt-8 flex gap-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (typed.trim()) {
+            setStudentName(typed);
+            setGrade("permis");
+            setOptions([]);
+            onDone();
+          }
+        }}
+      >
+        <input
+          value={typed}
+          onChange={(e) => setTyped(e.target.value)}
+          autoFocus
+          placeholder="Votre prénom"
+          className="btn-pop min-w-0 flex-1 bg-card px-5 py-3.5 font-medium outline-none placeholder:text-muted"
+        />
+        <button
+          type="submit"
+          className="btn-pop flex shrink-0 items-center gap-2 bg-ink px-6 py-3.5 font-semibold"
+        >
+          Commencer
+          <ArrowRight size={18} />
+        </button>
+      </form>
+      <p className="mt-4 text-sm text-muted">
+        Aucune inscription, aucune donnée envoyée : tout reste sur votre appareil.
+      </p>
     </div>
   );
 }
 
-export default function Home() {
+/* ------------------------------------------------------------------ */
+/* Tableau de bord                                                     */
+/* ------------------------------------------------------------------ */
+
+/** Jauge circulaire du niveau de préparation */
+function ReadinessGauge({ value }: { value: number }) {
+  const r = 62;
+  const c = 2 * Math.PI * r;
+  const filled = Math.max(0, Math.min(100, value)) / 100;
+  const color =
+    value >= 75
+      ? "var(--color-ok-strong)"
+      : value >= 45
+        ? "var(--color-sun)"
+        : "var(--color-ko-strong)";
+  return (
+    <div className="relative flex items-center justify-center">
+      <svg width="160" height="160" viewBox="0 0 160 160" aria-hidden="true">
+        <circle cx="80" cy="80" r={r} fill="none" stroke="var(--color-line)" strokeWidth="10" />
+        <circle
+          cx="80"
+          cy="80"
+          r={r}
+          fill="none"
+          stroke={color}
+          strokeWidth="10"
+          strokeLinecap="round"
+          strokeDasharray={`${c * filled} ${c}`}
+          transform="rotate(-90 80 80)"
+          style={{ transition: "stroke-dasharray 0.8s cubic-bezier(0.2,0.8,0.2,1)" }}
+        />
+      </svg>
+      <div className="absolute text-center">
+        <p className="tabular font-display text-4xl font-bold leading-none">{Math.round(value)}</p>
+        <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-muted">sur 100</p>
+      </div>
+    </div>
+  );
+}
+
+function Metric({
+  icon: Icon,
+  label,
+  value,
+  sub,
+  accent,
+}: {
+  icon: typeof Target;
+  label: string;
+  value: string;
+  sub?: string;
+  accent?: string;
+}) {
+  return (
+    <div className="card-pop p-4">
+      <div className="flex items-center gap-2 text-muted">
+        <Icon size={15} strokeWidth={2} />
+        <span className="text-xs font-semibold uppercase tracking-wider">{label}</span>
+      </div>
+      <p
+        className="tabular mt-2 font-display text-3xl font-bold leading-none"
+        style={accent ? { color: accent } : undefined}
+      >
+        {value}
+      </p>
+      {sub && <p className="mt-1.5 text-sm text-muted">{sub}</p>}
+    </div>
+  );
+}
+
+export default function Dashboard() {
   const progress = useProgress();
-  const { name, grade, options, hydrated } = usePrefs();
-  // Le setup reste affiché pendant TOUT le parcours (le prénom est enregistré dès l'étape 1)
-  const [showSetup, setShowSetup] = useState(false);
+  const { name, grade, hydrated } = usePrefs();
+  const [showFirstRun, setShowFirstRun] = useState(false);
   const [autoOpened, setAutoOpened] = useState(false);
-  const daily = progress.dailies[todayKey()];
-  const due = dueReviews(progress).length;
 
   if (hydrated && !name && !autoOpened) {
-    setShowSetup(true);
+    setShowFirstRun(true);
     setAutoOpened(true);
   }
+  if (!hydrated) return <div className="card-pop h-64 animate-pulse" />;
+  if (showFirstRun || !name) return <FirstRun onDone={() => setShowFirstRun(false)} />;
 
-  if (!hydrated) return <div className="card-pop h-40 animate-pulse" />;
+  /* --- Calculs du tableau de bord --- */
+  const subjects = SUBJECTS.map((s) => ({ meta: s, chapters: chaptersFor(s.id, grade) }));
+  const active = subjects.filter((s) => s.chapters.length > 0);
 
-  if (showSetup) {
-    return (
-      <div className="rise mx-auto max-w-2xl">
-        <ProfileSetup onDone={() => setShowSetup(false)} />
-      </div>
-    );
-  }
+  const allQuestions = active.flatMap((s) => s.chapters.flatMap((c) => c.exercises));
+  const answered = allQuestions.filter((q) => progress.exercises[q.id]);
+  const correct = allQuestions.filter((q) => progress.exercises[q.id]?.correct);
+  const successRate = answered.length ? Math.round((correct.length / answered.length) * 100) : 0;
+  const coverage = allQuestions.length ? correct.length / allQuestions.length : 0;
 
-  if (!name) {
-    // sécurité (stockage indisponible) : on repropose le setup
-    return (
-      <div className="rise mx-auto max-w-2xl">
-        <ProfileSetup onDone={() => setShowSetup(false)} />
-      </div>
-    );
-  }
+  // Niveau de préparation : couverture pondérée par la réussite. Plafonné tant
+  // qu'aucun examen blanc n'a été passé — on ne peut pas être prêt sans s'être testé.
+  const mockDone = Object.keys(progress.dailies).length > 0;
+  const raw = coverage * 100 * (0.5 + (successRate / 100) * 0.5);
+  const readiness = mockDone ? raw : Math.min(raw, 70);
 
-  const visibleSubjects = SUBJECTS.filter(
-    (s) =>
-      (!s.grades || s.grades.includes(grade)) &&
-      (!s.optional || options === null || options.includes(s.id))
-  );
+  const due = dueReviews(progress).length;
+  const daily = progress.dailies[todayKey()];
+
+  // Thèmes les plus fragiles
+  const weak = active
+    .flatMap((s) => s.chapters)
+    .map((c) => {
+      const tried = c.exercises.filter((e) => progress.exercises[e.id]);
+      const ok = c.exercises.filter((e) => progress.exercises[e.id]?.correct);
+      return {
+        chapter: c,
+        tried: tried.length,
+        rate: tried.length ? ok.length / tried.length : -1,
+      };
+    })
+    .filter((x) => x.tried >= 3 && x.rate < 0.75)
+    .sort((a, b) => a.rate - b.rate)
+    .slice(0, 3);
+
+  // Activité des 14 derniers jours
+  const days = Array.from({ length: 14 }, (_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - (13 - i));
+    return progress.activity[todayKey(d)]?.ex ?? 0;
+  });
+  const peak = Math.max(1, ...days);
+
+  const nextAction =
+    due > 0
+      ? {
+          href: "/revision",
+          label: `Revoir ${due} question${due > 1 ? "s" : ""}`,
+          why: "Ces questions vous ont piégé — elles reviennent aujourd'hui.",
+        }
+      : !daily
+        ? {
+            href: "/defi",
+            label: "Série du jour",
+            why: "Six questions rapides pour entretenir vos automatismes.",
+          }
+        : {
+            href: "/controle",
+            label: "Lancer un examen blanc",
+            why: "Conditions réelles : questions chronométrées, note à la fin.",
+          };
 
   return (
-    <div className="rise space-y-4">
-      {/* Rangée haute : bienvenue + défi du jour */}
-      <div className="grid gap-4 lg:grid-cols-[1.6fr_1fr]">
-        <div className="card-pop flex items-center gap-4 p-5 md:p-6">
-          <div className="hidden sm:block">
-            <CreneauLogo size={64} />
-          </div>
-          <div className="flex-1">
-            <h1 className="font-display text-2xl font-extrabold leading-tight md:text-3xl">
-              Bonjour {name} !
-              <button
-                onClick={() => setShowSetup(true)}
-                className="ml-2 inline-flex align-middle text-muted hover:text-ink"
-                aria-label="Modifier mon profil"
-              >
-                <Settings2 size={18} />
-              </button>
-            </h1>
-            <p className="mt-1 font-semibold text-muted">
-              Prêt pour votre séance du jour ? Choisissez un thème.
-            </p>
-          </div>
-          <div className="hidden shrink-0 items-center gap-2 rounded-2xl bg-sun-tint px-4 py-3 md:flex">
-            <Flame size={22} strokeWidth={2.5} className="text-sun-strong" />
-            <div>
-              <p className="font-display text-xl font-extrabold leading-none text-sun-strong">
-                {progress.streak.current} jour{progress.streak.current > 1 ? "s" : ""}
-              </p>
-              <p className="text-xs font-bold text-sun-strong/80">de série, continue !</p>
+    <div className="fade-up">
+      {/* En-tête */}
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-sm font-medium text-muted">Bonjour {name}</p>
+          <h1 className="font-display text-3xl font-bold leading-tight md:text-4xl">
+            Votre préparation
+          </h1>
+        </div>
+        <Link
+          href={nextAction.href}
+          className="btn-pop flex items-center gap-2 bg-ink px-6 py-3 font-semibold"
+        >
+          {nextAction.label}
+          <ArrowRight size={18} />
+        </Link>
+      </div>
+
+      {/* Jauge + métriques */}
+      <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(280px,340px)_1fr]">
+        <div className="card-pop flex flex-col items-center justify-center p-6">
+          <ReadinessGauge value={readiness} />
+          <p className="mt-4 text-center font-display text-lg font-semibold">
+            {readiness >= 75
+              ? "Vous êtes prêt"
+              : readiness >= 45
+                ? "En bonne voie"
+                : "Préparation à consolider"}
+          </p>
+          <p className="mt-1 max-w-[28ch] text-center text-sm leading-relaxed text-muted">
+            {mockDone
+              ? "Estimation fondée sur vos réponses et vos examens blancs."
+              : "Plafonné à 70 tant qu'aucun examen blanc n'a été passé."}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 lg:content-start">
+          <Metric
+            icon={TrendingUp}
+            label="Réussite"
+            value={answered.length ? `${successRate} %` : "—"}
+            sub={`${correct.length} bonnes sur ${answered.length} traitées`}
+            accent={successRate >= 75 ? "var(--color-ok-strong)" : undefined}
+          />
+          <Metric
+            icon={Layers}
+            label="Couverture"
+            value={`${Math.round(coverage * 100)} %`}
+            sub={`${correct.length} / ${allQuestions.length} questions acquises`}
+          />
+          <Metric
+            icon={BrainCircuit}
+            label="À revoir"
+            value={String(due)}
+            sub={due ? "Programmé pour aujourd'hui" : "Rien en attente"}
+            accent={due > 0 ? "var(--color-sun)" : undefined}
+          />
+          <Metric
+            icon={CalendarDays}
+            label="Régularité"
+            value={`${progress.streak.current} j`}
+            sub={`Record : ${progress.streak.best} jours`}
+          />
+
+          <div className="card-pop col-span-2 p-4">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted">
+                Activité — 14 derniers jours
+              </span>
+              <span className="tabular text-xs text-muted">
+                {days.reduce((a, b) => a + b, 0)} questions
+              </span>
+            </div>
+            <div className="mt-3 flex h-16 items-end gap-1">
+              {days.map((v, i) => (
+                <div
+                  key={i}
+                  className="flex-1 rounded-sm transition-all"
+                  style={{
+                    height: `${Math.max(4, (v / peak) * 100)}%`,
+                    background: v ? "var(--color-zest)" : "var(--color-line)",
+                    opacity: v ? 0.35 + (v / peak) * 0.65 : 1,
+                  }}
+                  title={`${v} question${v > 1 ? "s" : ""}`}
+                />
+              ))}
             </div>
           </div>
         </div>
-
-        <Link
-          href="/defi"
-          className={`hero-card group flex items-center justify-between gap-3 bg-gradient-to-br from-[#FFD166] to-[#F5B93E] p-5 ${
-            daily ? "" : "daily-glow"
-          }`}
-        >
-          <div className="flex items-center gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-sun-strong text-white">
-              <Swords size={24} strokeWidth={2.5} />
-            </span>
-            <div>
-              <p className="font-display text-xl font-extrabold text-sun-strong">Défi du jour</p>
-              <p className="text-sm font-bold leading-tight text-sun-strong">
-                {daily
-                  ? `Fait ! ${daily.score}/${daily.total} — reviens demain.`
-                  : `${DAILY_SIZE} questions rapides pour ta série !`}
-              </p>
-            </div>
-          </div>
-          {daily ? (
-            <CheckCircle2 size={30} className="shrink-0 text-sun-strong" />
-          ) : (
-            <ChevronRight size={28} className="shrink-0 text-sun-strong transition-transform group-hover:translate-x-1" />
-          )}
-        </Link>
       </div>
 
-      {/* Révision espacée + mode contrôle */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Link href="/revision" className="card-pop group flex items-center gap-4 p-4 transition-transform hover:-translate-y-0.5">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-grandeurs-tint text-grandeurs-strong">
-            <BrainCircuit size={26} strokeWidth={2.25} />
-          </span>
-          <div className="flex-1">
-            <p className="font-display text-lg font-extrabold">Ma révision du jour</p>
-            <p className="text-sm font-bold text-muted">
-              {due > 0
-                ? `${due} exercice${due > 1 ? "s" : ""} à revoir pour bien mémoriser`
-                : "Rien à revoir — ta mémoire est à jour !"}
-            </p>
-          </div>
-          {due > 0 && (
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ko-tint font-display text-sm font-extrabold text-ko-strong">
-              {due}
-            </span>
-          )}
-        </Link>
-        <Link href="/controle" className="card-pop group flex items-center gap-4 p-4 transition-transform hover:-translate-y-0.5">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-nombres-tint text-nombres-strong">
-            <TimerReset size={26} strokeWidth={2.25} />
+      {/* Action recommandée */}
+      <Link
+        href={nextAction.href}
+        className={`hero-card mt-4 flex items-center justify-between gap-4 bg-card p-5 ${
+          !daily && due === 0 ? "daily-glow" : ""
+        }`}
+      >
+        <div className="flex items-center gap-4">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-zest-soft text-ok-strong">
+            <Target size={22} strokeWidth={2} />
           </span>
           <div>
-            <p className="font-display text-lg font-extrabold">Examen blanc</p>
-            <p className="text-sm font-bold text-muted">10 questions chrono, note sur 20, comme en classe</p>
+            <p className="font-display text-lg font-semibold">{nextAction.label}</p>
+            <p className="text-sm text-muted">{nextAction.why}</p>
           </div>
-        </Link>
-      </div>
+        </div>
+        <ArrowRight size={20} className="shrink-0 text-muted" />
+      </Link>
 
-      {/* Matières */}
-      <section className="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {visibleSubjects.map((s) => {
-          const chapters = chaptersFor(s.id, grade);
-          const total = chapters.reduce((n, c) => n + c.exercises.length, 0);
-          const done = chapters.reduce(
-            (n, c) => n + c.exercises.filter((e) => progress.exercises[e.id]?.correct).length,
-            0
-          );
-          const available = chapters.length > 0;
-          const inner = (
-            <>
-              <div className="flex items-start justify-between">
-                <span className="card-icon flex h-11 w-11 items-center justify-center rounded-xl bg-white/20 text-white">
-                  <ChapterIcon name={s.icon} size={24} strokeWidth={2.25} />
-                </span>
-                {available ? (
-                  <span className="flex items-center gap-1.5">
-                    {s.optional && (
-                      <span className="rounded-full bg-white/25 px-2.5 py-1.5 text-xs font-extrabold text-white">
-                        Option
-                      </span>
-                    )}
-                    <span
-                      className="rounded-full px-3 py-1.5 text-xs font-extrabold text-white"
-                      style={{ background: s.deep }}
-                    >
-                      {done}/{total} réussis
-                    </span>
-                  </span>
-                ) : (
-                  <span className="rounded-full bg-white/25 px-3 py-1.5 text-xs font-extrabold text-white">
-                    Bientôt !
-                  </span>
-                )}
-              </div>
-              <p className="mt-2.5 font-display text-xl font-extrabold text-white md:text-2xl">{s.label}</p>
-              <p
-                className="mt-1 w-fit rounded-lg px-2 py-0.5 text-xs font-bold text-white"
-                style={{ background: "rgba(0,0,0,0.22)" }}
+      {/* Points faibles */}
+      {weak.length > 0 && (
+        <section className="mt-6">
+          <h2 className="flex items-center gap-2 font-display text-xl font-semibold">
+            <CircleAlert size={19} className="text-sun-strong" />
+            À travailler en priorité
+          </h2>
+          <div className="stagger mt-3 grid grid-cols-2 gap-3 lg:grid-cols-3">
+            {weak.map(({ chapter, rate, tried }) => (
+              <Link
+                key={chapter.slug}
+                href={`/chapitre/${chapter.slug}`}
+                className="hero-card bg-card p-4"
               >
-                {s.tagline}
-              </p>
-              {available && (
-                <div className="mt-3 h-2 overflow-hidden rounded-full bg-black/25">
+                <p className="font-semibold leading-snug">{chapter.title}</p>
+                <p className="tabular mt-1 text-sm text-ko-strong">
+                  {Math.round(rate * 100)} % de réussite
+                </p>
+                <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-line">
                   <div
-                    className="h-full rounded-full bg-white transition-all duration-500"
-                    style={{ width: `${total ? Math.max(2, (done / total) * 100) : 0}%` }}
+                    className="h-full rounded-full bg-ko-strong transition-all duration-700"
+                    style={{ width: `${Math.max(3, rate * 100)}%` }}
                   />
                 </div>
-              )}
-            </>
-          );
-          const style = { background: `linear-gradient(135deg, ${s.from} 0%, ${s.to} 100%)` };
-          const cls = "hero-card block p-5";
-          return available ? (
-            <Link key={s.id} href={`/matiere/${s.id}`} className={cls} style={style}>
-              {inner}
-            </Link>
-          ) : (
-            <div key={s.id} className={`${cls} opacity-80`} style={style}>
-              {inner}
-            </div>
-          );
-        })}
+                <p className="mt-2 text-xs text-muted">{tried} questions traitées</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Thèmes */}
+      <section className="mt-6">
+        <div className="flex items-baseline justify-between">
+          <h2 className="font-display text-xl font-semibold">Les thèmes</h2>
+          <Link
+            href="/controle"
+            className="flex items-center gap-1.5 text-sm font-medium text-muted hover:text-ink"
+          >
+            <TimerReset size={15} />
+            Examen blanc
+          </Link>
+        </div>
+        <div className="stagger mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {subjects.map(({ meta, chapters }) => {
+            const total = chapters.reduce((n, c) => n + c.exercises.length, 0);
+            const done = chapters.reduce(
+              (n, c) => n + c.exercises.filter((e) => progress.exercises[e.id]?.correct).length,
+              0
+            );
+            const available = chapters.length > 0;
+            const inner = (
+              <>
+                <div className="flex items-start justify-between">
+                  <span
+                    className="flex h-10 w-10 items-center justify-center rounded-xl"
+                    style={{ background: meta.tint, color: meta.from }}
+                  >
+                    <ChapterIcon name={meta.icon} size={20} strokeWidth={2} />
+                  </span>
+                  {available ? (
+                    <span className="tabular text-xs font-semibold text-muted">
+                      {done}/{total}
+                    </span>
+                  ) : (
+                    <span className="rounded-full border border-line px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted">
+                      bientôt
+                    </span>
+                  )}
+                </div>
+                <p className="mt-3 font-display text-base font-semibold leading-tight">
+                  {meta.label}
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-muted">{meta.tagline}</p>
+                {available && (
+                  <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-line">
+                    <div
+                      className="h-full rounded-full transition-all duration-700"
+                      style={{
+                        width: `${total ? Math.max(3, (done / total) * 100) : 0}%`,
+                        background: meta.from,
+                      }}
+                    />
+                  </div>
+                )}
+              </>
+            );
+            return available ? (
+              <Link key={meta.id} href={`/matiere/${meta.id}`} className="hero-card bg-card p-4">
+                {inner}
+              </Link>
+            ) : (
+              <div key={meta.id} className="hero-card bg-card p-4 opacity-55">
+                {inner}
+              </div>
+            );
+          })}
+        </div>
       </section>
     </div>
   );
