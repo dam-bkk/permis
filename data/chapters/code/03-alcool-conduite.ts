@@ -19,6 +19,7 @@ export const chapter: Chapter = {
   lesson: [
     {
       title: "Les taux d'alcool légaux",
+      figure: "sit-taux-alcool",
       paragraphs: [
         "Il est interdit de conduire avec un taux d'alcool égal ou supérieur à 0,5 gramme par litre de sang, ce qui correspond à 0,25 milligramme par litre d'air expiré. C'est le seuil applicable à la majorité des conducteurs.",
         "Un seuil abaissé à 0,2 gramme par litre de sang, soit 0,10 milligramme par litre d'air expiré, s'applique aux conducteurs titulaires d'un permis soumis au délai probatoire, aux élèves en apprentissage anticipé, encadré ou supervisé, aux conducteurs de véhicules de transport en commun et aux personnes dont le droit de conduire est limité aux véhicules équipés d'un éthylotest antidémarrage.",
@@ -32,6 +33,7 @@ export const chapter: Chapter = {
     },
     {
       title: "Les sanctions liées à l'alcool",
+      figure: "sit-taux-alcool",
       paragraphs: [
         "Entre le seuil applicable et 0,8 gramme par litre de sang, l'infraction est une contravention de 4e classe : amende forfaitaire de 135 €, retrait de 6 points, immobilisation possible du véhicule et suspension du permis pouvant aller jusqu'à 3 ans. Un jeune conducteur perd ainsi la moitié de son capital de points dès 0,2 g/L.",
         "À partir de 0,8 gramme par litre de sang, soit 0,40 milligramme par litre d'air expiré, il ne s'agit plus d'une contravention mais d'un délit : jusqu'à 3 ans d'emprisonnement et 9 000 € d'amende, 6 points retirés, suspension ou annulation du permis pendant 5 ans au plus, confiscation possible du véhicule. La conduite en état d'ivresse manifeste est punie des mêmes peines, même sans mesure du taux.",
@@ -45,6 +47,7 @@ export const chapter: Chapter = {
     },
     {
       title: "Ce que l'alcool fait à la conduite",
+      figure: "sit-temps-reaction",
       paragraphs: [
         "L'alcool allonge le temps de réaction. Une seconde de réaction devient facilement une seconde et demie, ce qui ajoute une dizaine de mètres à la distance d'arrêt sur route hors agglomération.",
         "Il rétrécit le champ visuel : la vision périphérique se réduit, un phénomène de vision tunnel apparaît, et les piétons ou les deux-roues arrivant sur les côtés sont perçus trop tard. La sensibilité à l'éblouissement augmente, ce qui aggrave le risque de nuit.",
@@ -58,6 +61,7 @@ export const chapter: Chapter = {
     },
     {
       title: "Stupéfiants et médicaments",
+      figure: "sit-pictogrammes-medicaments",
       paragraphs: [
         "La conduite après usage de stupéfiants est interdite quelle que soit la quantité consommée : il n'existe aucun seuil de tolérance. Le dépistage se fait par test salivaire, et les traces d'un produit comme le cannabis restent détectables bien après la disparition de ses effets ressentis.",
         "Conduire après usage de stupéfiants est un délit puni de 3 ans d'emprisonnement et de 9 000 € d'amende, avec retrait de 6 points. Si le conducteur se trouve également sous l'empire d'un état alcoolique, les peines montent à 5 ans d'emprisonnement et 15 000 € d'amende, et 9 points sont retirés. L'interdiction vaut aussi pour l'accompagnateur d'un élève conducteur.",
@@ -71,6 +75,7 @@ export const chapter: Chapter = {
     },
     {
       title: "Fatigue, somnolence et téléphone",
+      figure: "sit-fatigue-pause",
       paragraphs: [
         "La somnolence est la première cause d'accident mortel sur autoroute. Les signaux d'alerte sont connus : bâillements répétés, paupières lourdes, regard fixe, position inconfortable, difficulté à maintenir sa trajectoire ou franchissement involontaire d'une ligne.",
         "Face à ces signaux, une seule réponse est efficace : s'arrêter en sécurité et faire une sieste de 15 à 20 minutes. Ouvrir la fenêtre, monter le son de la radio ou boire un café en roulant ne fait que masquer brièvement la fatigue. La recommandation générale est de faire une pause d'au moins 20 minutes toutes les deux heures de conduite.",
@@ -86,6 +91,7 @@ export const chapter: Chapter = {
   exercises: [
     {
       id: "calc-1",
+      figure: "sit-taux-alcool",
       level: 1,
       type: "qcm",
       question:
@@ -103,6 +109,7 @@ export const chapter: Chapter = {
     },
     {
       id: "calc-2",
+      figure: "sit-taux-alcool",
       level: 1,
       type: "qcm",
       question:
@@ -143,6 +150,7 @@ export const chapter: Chapter = {
     },
     {
       id: "calc-5",
+      figure: "sit-fatigue-pause",
       level: 1,
       type: "qcm",
       question:
@@ -177,6 +185,7 @@ export const chapter: Chapter = {
     },
     {
       id: "calc-7",
+      figure: "sit-taux-alcool",
       level: 2,
       type: "qcm",
       question:
@@ -189,6 +198,7 @@ export const chapter: Chapter = {
     },
     {
       id: "calc-8",
+      figure: "sit-elimination-alcool",
       level: 2,
       type: "truefalse",
       question:
@@ -200,6 +210,7 @@ export const chapter: Chapter = {
     },
     {
       id: "calc-9",
+      figure: "sit-telephone",
       level: 2,
       type: "qcm",
       question:
@@ -217,6 +228,7 @@ export const chapter: Chapter = {
     },
     {
       id: "calc-10",
+      figure: "sit-pictogrammes-medicaments",
       level: 2,
       type: "qcm",
       question:
@@ -234,6 +246,7 @@ export const chapter: Chapter = {
     },
     {
       id: "calc-11",
+      figure: "sit-temps-reaction",
       level: 3,
       type: "qcm",
       question: "Comment l'alcool agit-il sur la conduite ?",
@@ -267,6 +280,7 @@ export const chapter: Chapter = {
     },
     {
       id: "calc-13",
+      figure: "sit-fatigue-pause",
       level: 3,
       type: "qcm",
       question:

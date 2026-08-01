@@ -205,8 +205,8 @@ export default function Dashboard() {
       : !daily
         ? {
             href: "/defi",
-            label: "Série du jour",
-            why: "Six questions rapides pour entretenir vos automatismes.",
+            label: "Session d'entraînement",
+            why: "Série ciblée sur les thèmes que vous maîtrisez le moins.",
           }
         : {
             href: "/controle",
@@ -292,7 +292,7 @@ export default function Dashboard() {
               {days.map((v, i) => (
                 <div
                   key={i}
-                  className="flex-1 rounded-[3px] transition-all"
+                  className="flex-1 rounded-xl transition-all"
                   style={{
                     height: `${Math.max(4, (v / peak) * 100)}%`,
                     background: v ? "var(--color-zest)" : "var(--color-line)",
@@ -314,7 +314,7 @@ export default function Dashboard() {
         }`}
       >
         <div className="flex items-center gap-4">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[3px] bg-zest-soft text-ok-strong">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-zest-soft text-ok-strong">
             <Target size={22} strokeWidth={2} />
           </span>
           <div>
@@ -343,9 +343,9 @@ export default function Dashboard() {
                 <p className="tabular mt-1 text-sm text-ko-strong">
                   {Math.round(rate * 100)} % de réussite
                 </p>
-                <div className="mt-2.5 h-1.5 overflow-hidden rounded-[3px] bg-line">
+                <div className="mt-2.5 h-1.5 overflow-hidden rounded-xl bg-line">
                   <div
-                    className="h-full rounded-[3px] bg-ko-strong transition-all duration-700"
+                    className="h-full rounded-xl bg-ko-strong transition-all duration-700"
                     style={{ width: `${Math.max(3, rate * 100)}%` }}
                   />
                 </div>
@@ -380,7 +380,7 @@ export default function Dashboard() {
               <>
                 <div className="flex items-start justify-between">
                   <span
-                    className="flex h-10 w-10 items-center justify-center rounded-[3px]"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl"
                     style={{ background: meta.tint, color: meta.from }}
                   >
                     <ChapterIcon name={meta.icon} size={20} strokeWidth={2} />
@@ -390,7 +390,7 @@ export default function Dashboard() {
                       {done}/{total}
                     </span>
                   ) : (
-                    <span className="rounded-[3px] border border-line px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted">
+                    <span className="rounded-xl border border-line px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted">
                       bientôt
                     </span>
                   )}
@@ -400,9 +400,9 @@ export default function Dashboard() {
                 </p>
                 <p className="mt-1 text-xs leading-relaxed text-muted">{meta.tagline}</p>
                 {available && (
-                  <div className="mt-3 h-1.5 overflow-hidden rounded-[3px] bg-line">
+                  <div className="mt-3 h-1.5 overflow-hidden rounded-xl bg-line">
                     <div
-                      className="h-full rounded-[3px] transition-all duration-700"
+                      className="h-full rounded-xl transition-all duration-700"
                       style={{
                         width: `${total ? Math.max(3, (done / total) * 100) : 0}%`,
                         background: meta.from,

@@ -48,6 +48,8 @@ export interface Exercise {
   explanation: string;
   /** Indice affichable avant de répondre */
   hint?: string;
+  /** Illustration de la situation décrite (id du catalogue components/figures.tsx) */
+  figure?: string;
 }
 
 /** Un seul niveau pour l'instant — champ conservé pour la compatibilité du moteur. */

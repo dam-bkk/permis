@@ -19,6 +19,7 @@ export const chapter: Chapter = {
   lesson: [
     {
       title: "Les vitesses maximales selon la route",
+      figure: "sit-agglomeration",
       paragraphs: [
         "En agglomération, la vitesse est limitée à 50 km/h. Elle peut être relevée à 70 km/h sur certaines sections où les accès riverains et les traversées piétonnes sont peu nombreux et protégés, et de nombreuses communes l'abaissent au contraire à 30 km/h.",
         "Hors agglomération, la limitation est de 80 km/h sur les routes à double sens sans séparateur central. L'autorité locale chargée de la circulation peut relever cette limite à 90 km/h sur les sections qui relèvent de sa compétence : c'est pourquoi certains départements affichent 80 et d'autres 90.",
@@ -32,6 +33,7 @@ export const chapter: Chapter = {
     },
     {
       title: "Pluie, brouillard et permis probatoire",
+      figure: "sit-visibilite-reduite",
       paragraphs: [
         "En cas de pluie ou d'autres précipitations, les limitations sont abaissées : 110 km/h sur les autoroutes normalement limitées à 130, 100 km/h sur les autres sections d'autoroute et sur les routes à deux chaussées séparées, et 80 km/h sur les autres routes hors agglomération. Une route déjà limitée à 80 km/h reste donc à 80 sous la pluie, et l'agglomération reste à 50.",
         "Lorsque la visibilité tombe en dessous de 50 mètres, quelle qu'en soit la cause (brouillard, neige, forte pluie), la vitesse est limitée à 50 km/h sur toutes les routes, autoroute comprise.",
@@ -45,6 +47,7 @@ export const chapter: Chapter = {
     },
     {
       title: "La distance de sécurité : la règle des 2 secondes",
+      figure: "sit-distance-securite",
       paragraphs: [
         "Lorsque deux véhicules se suivent, le conducteur du second doit maintenir une distance suffisante pour éviter une collision en cas de ralentissement brusque ou d'arrêt subit. Le code fixe cette distance à celle parcourue pendant un délai d'au moins deux secondes.",
         "En pratique, on repère un point fixe au bord de la route (panneau, arbre, marquage) : lorsque le véhicule qui précède le dépasse, on compte deux secondes. Si l'on atteint le repère avant la fin du décompte, on est trop près.",
@@ -58,6 +61,7 @@ export const chapter: Chapter = {
     },
     {
       title: "Distance d'arrêt = distance de réaction + distance de freinage",
+      figure: "sit-distance-arret",
       paragraphs: [
         "La distance d'arrêt est la somme de deux distances : celle parcourue pendant le temps de réaction, avant même que le pied n'appuie sur le frein, et celle nécessaire pour immobiliser le véhicule une fois le freinage engagé.",
         "Le temps de réaction d'un conducteur en pleine possession de ses moyens est d'environ une seconde. La distance de réaction s'estime facilement : on multiplie le chiffre des dizaines de la vitesse par 3. À 50 km/h, cela fait 15 mètres ; à 90 km/h, 27 mètres ; à 130 km/h, 39 mètres.",
@@ -71,6 +75,7 @@ export const chapter: Chapter = {
     },
     {
       title: "Énergie du choc et sanctions",
+      figure: "sit-energie-choc",
       paragraphs: [
         "L'énergie libérée lors d'un choc augmente avec le carré de la vitesse : en doublant la vitesse, on multiplie cette énergie par quatre. Passer de 50 à 100 km/h ne double donc pas la violence de l'impact, il la quadruple. Un choc frontal à 50 km/h contre un obstacle fixe équivaut à une chute d'environ dix mètres, soit une chute du troisième étage.",
         "Les sanctions dépendent de l'importance du dépassement. Un excès inférieur à 5 km/h coûte 68 € lorsque la vitesse maximale autorisée est supérieure à 50 km/h, 135 € lorsqu'elle est inférieure ou égale à 50 km/h, sans retrait de point. Entre 5 et 19 km/h, mêmes montants, mais 1 point en moins.",
@@ -86,6 +91,7 @@ export const chapter: Chapter = {
   exercises: [
     {
       id: "cvit-1",
+      figure: "sit-agglomeration",
       level: 1,
       type: "qcm",
       question:
@@ -98,6 +104,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cvit-2",
+      figure: "sit-file-autoroute",
       level: 1,
       type: "qcm",
       question:
@@ -137,6 +144,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cvit-5",
+      figure: "sit-distance-securite",
       level: 1,
       type: "qcm",
       question:
@@ -189,6 +197,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cvit-9",
+      figure: "sit-visibilite-reduite",
       level: 2,
       type: "qcm",
       question:
@@ -201,6 +210,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cvit-10",
+      figure: "sit-temps-reaction",
       level: 2,
       type: "qcm",
       question:
@@ -218,6 +228,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cvit-11",
+      figure: "sit-distance-arret",
       level: 3,
       type: "qcm",
       question:
@@ -235,6 +246,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cvit-12",
+      figure: "sit-energie-choc",
       level: 3,
       type: "qcm",
       question:

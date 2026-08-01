@@ -19,6 +19,7 @@ export const chapter: Chapter = {
   lesson: [
     {
       title: "La règle de base : la priorité à droite",
+      figure: "sit-priorite-droite",
       paragraphs: [
         "Lorsque deux conducteurs abordent une intersection par des routes différentes, celui qui vient par la gauche doit céder le passage à l'autre. Autrement dit : le véhicule qui arrive sur votre droite passe avant vous. C'est la règle par défaut, celle qui s'applique dès qu'aucune signalisation ne dit le contraire.",
         "Cette règle vaut pour tous les conducteurs, y compris les cyclistes et les conducteurs de deux-roues motorisés. Elle ne dépend ni de la largeur des routes, ni de l'ordre d'arrivée à l'intersection.",
@@ -32,6 +33,7 @@ export const chapter: Chapter = {
     },
     {
       title: "Les panneaux qui changent la donne",
+      figure: "sit-stop",
       paragraphs: [
         "Le panneau « Cédez le passage » (triangle blanc bordé de rouge, pointe vers le bas) impose de laisser passer les véhicules circulant sur la route abordée. Vous n'êtes pas obligé de vous arrêter si la voie est libre, mais vous devez pouvoir le faire.",
         "Le panneau « Stop » (octogone rouge) impose un arrêt absolu à la limite de la chaussée abordée, même si la route est totalement dégagée. Un simple ralentissement, aussi lent soit-il, constitue une infraction.",
@@ -45,6 +47,7 @@ export const chapter: Chapter = {
     },
     {
       title: "Carrefour à sens giratoire ou rond-point : la vraie différence",
+      figure: "sit-giratoire",
       paragraphs: [
         "Un carrefour à sens giratoire est signalé par le panneau représentant trois flèches en anneau, accompagné à chaque entrée d'un panneau « Cédez le passage ». Tout conducteur qui l'aborde doit céder le passage aux usagers qui circulent déjà sur l'anneau, quelle que soit la route qu'il quitte. C'est le cas de l'immense majorité des giratoires en France.",
         "Un rond-point sans cette signalisation obéit à la règle inverse : faute de panneau, c'est la priorité à droite qui s'applique. Les véhicules qui entrent sont donc prioritaires sur ceux qui tournent déjà autour du terre-plein central. La place de l'Étoile à Paris en est l'exemple le plus connu.",
@@ -57,6 +60,7 @@ export const chapter: Chapter = {
     },
     {
       title: "Les priorités qui s'imposent en toutes circonstances",
+      figure: "sit-vehicule-urgence",
       paragraphs: [
         "Les véhicules d'intérêt général prioritaires (pompiers, SAMU, police, gendarmerie) doivent être laissés libres de passer en toutes circonstances, à condition qu'ils annoncent leur approche avec leurs avertisseurs spéciaux, sonores et lumineux. Sirène éteinte, le véhicule perd cette priorité et redevient un usager ordinaire.",
         "Céder le passage à un véhicule d'urgence ne signifie pas commettre une infraction dangereuse : on ralentit, on se serre à droite, on s'arrête si nécessaire, et on ne s'engage jamais dans un carrefour pour le laisser passer. Le refus de priorité coûte ici aussi 135 € et 4 points.",
@@ -69,6 +73,7 @@ export const chapter: Chapter = {
     },
     {
       title: "Les cas particuliers à connaître",
+      figure: "sit-croisement-pente",
       paragraphs: [
         "Lorsque vous débouchez sur une route depuis une aire de stationnement, un chemin de terre, un accès privé ou en franchissant un trottoir, vous n'avez aucune priorité : vous devez céder le passage à tout autre véhicule, y compris à celui qui vient de votre gauche.",
         "Pour tourner à gauche, vous devez céder le passage aux véhicules venant en sens inverse, ainsi qu'aux cyclistes et engins circulant dans les deux sens sur une piste cyclable que vous allez traverser. Un feu vert ne dispense jamais de cette obligation.",
@@ -84,6 +89,7 @@ export const chapter: Chapter = {
   exercises: [
     {
       id: "cpri-1",
+      figure: "sit-priorite-droite",
       level: 1,
       type: "qcm",
       question:
@@ -101,6 +107,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cpri-2",
+      figure: "sit-stop",
       level: 1,
       type: "qcm",
       question:
@@ -118,6 +125,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cpri-3",
+      figure: "sit-cedez-passage",
       level: 1,
       type: "truefalse",
       question:
@@ -129,6 +137,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cpri-4",
+      figure: "sit-vehicule-urgence",
       level: 1,
       type: "qcm",
       question:
@@ -163,6 +172,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cpri-6",
+      figure: "sit-giratoire",
       level: 2,
       type: "qcm",
       question:
@@ -180,6 +190,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cpri-7",
+      figure: "sit-rond-point",
       level: 2,
       type: "qcm",
       question:
@@ -197,6 +208,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cpri-8",
+      figure: "sit-sortie-parking",
       level: 2,
       type: "qcm",
       question:
@@ -225,6 +237,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cpri-10",
+      figure: "sit-tourne-a-gauche",
       level: 2,
       type: "qcm",
       question:
@@ -242,6 +255,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cpri-11",
+      figure: "sit-carrefour-bloque",
       level: 3,
       type: "qcm",
       question:
@@ -259,6 +273,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cpri-12",
+      figure: "sit-tramway",
       level: 3,
       type: "qcm",
       question:
@@ -276,6 +291,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cpri-13",
+      figure: "sit-croisement-pente",
       level: 3,
       type: "qcm",
       question:
@@ -304,6 +320,7 @@ export const chapter: Chapter = {
     },
     {
       id: "cpri-15",
+      figure: "sit-chemin-de-terre",
       level: 3,
       type: "qcm",
       question:
